@@ -48,12 +48,10 @@ public class BlockHit : MonoBehaviour
 
         animating = false;
     }
-
     private IEnumerator Move(Vector3 from, Vector3 to)
     {
         float elapsed = 0f;
         float duration = 0.125f;
-
         while (elapsed < duration)
         {
             float t = elapsed / duration;
@@ -63,8 +61,6 @@ public class BlockHit : MonoBehaviour
 
             yield return null;
         }
-
         transform.localPosition = to;
     }
-
 }
