@@ -6,9 +6,9 @@ TagManager:
   tags:
   - Water
   - Ground
+  - Coin
   - Enemy
   - Bubble
-
   - nv
 
   layers:
