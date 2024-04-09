@@ -60,6 +60,7 @@ public class PlayerMover : MonoBehaviour
         if (playerMananger.GetIsWater() || playerMananger.GetIsGround())
         {
             jumpCount = jumpMax;
+
             animator.SetBool("isGround",true);
         }
         if (!playerMananger.GetIsGround())

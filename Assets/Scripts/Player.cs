@@ -25,9 +25,12 @@ public class Player : MonoBehaviour
     {
         if (!dead && !starpower)
         {
-            if (big) {
+            if (big)
+            {
                 Shrink();
-            } else {
+            }
+            else
+            {
                 Death();
             }
         }
@@ -105,7 +108,8 @@ public class Player : MonoBehaviour
         {
             elapsed += Time.deltaTime;
 
-            if (Time.frameCount % 4 == 0) {
+            if (Time.frameCount % 4 == 0)
+            {
                 activeRenderer.spriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f);
             }
 

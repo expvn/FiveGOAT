@@ -4,15 +4,24 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlayerMananger : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     public static PlayerMananger instan;
     [SerializeField] private TMP_Text textOxy;
     [SerializeField] private GameObject playerGround;
     [SerializeField] private GameObject playerWater;
     [SerializeField] private float oxyMax;
+    [SerializeField] private int maxHealth = 10;
+
+    private int currentHealth;
     private float oxy;
     private bool isWater;
+
+
+    void Start()
+    {
+        oxy = oxyMax;
+        currentHealth = maxHealth;
 
     public Animator animatorCa1;
     public Animator animatorNo;
@@ -37,9 +46,12 @@ public class PlayerMananger : MonoBehaviour
        
     }
 
-    // Update is called once per frame
     void Update()
     {
+
+        m_Text.SetText(oxy.ToString("0"));
+
+
         GroundOrWater();
         ModunOxy();
         
@@ -99,8 +111,8 @@ public class PlayerMananger : MonoBehaviour
             isWater = true;
             Debug.Log("Dang duoi nuoc");
         }
-            
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Water"))
@@ -138,6 +150,42 @@ public class PlayerMananger : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    public void IncreaseHealth(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            TakeDamage(1); // Trừ 1 máu khi chạm vào Enemy
+            Destroy(gameObject);
+        }
+        if (collision.CompareTag("Bubble"))
+        { 
+            IncreaseHealth(1);
+        }
+    }
+
+    private void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player Died!");
+        // Xử lý khi người chơi chết
+        // Hiển thị màn hình Game Over, thực hiện các hành động khác,...
     public void AddHealth()
     {
         health++;
