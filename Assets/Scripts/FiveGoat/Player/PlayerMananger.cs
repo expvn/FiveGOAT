@@ -4,18 +4,23 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlayerMananger : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
-    public static PlayerMananger instan;
+    public static PlayerManager instan;
     [SerializeField] private TMP_Text textOxy;
     [SerializeField] private GameObject playerGround;
     [SerializeField] private GameObject playerWater;
     [SerializeField] private float oxyMax;
+    [SerializeField] private int maxHealth = 10;
+
+    private int currentHealth;
     private float oxy;
     private bool isWater;
+
     private bool isGround;
     private int health;
     private int coin;
+
 
 
     private void Awake()
@@ -29,12 +34,11 @@ public class PlayerMananger : MonoBehaviour
        
     }
 
-    // Update is called once per frame
     void Update()
     {
+        currentHealth = maxHealth;
         GroundOrWater();
-        ModunOxy();
-        
+        ModunOxy();   
     }
 
     private void GroundOrWater()
@@ -65,6 +69,7 @@ public class PlayerMananger : MonoBehaviour
             {
                 health--; ;
             }
+            Debug.Log("Ok em ");
         }
         else
         {
@@ -91,8 +96,8 @@ public class PlayerMananger : MonoBehaviour
             isWater = true;
             Debug.Log("Dang duoi nuoc");
         }
-            
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Water"))
@@ -100,6 +105,7 @@ public class PlayerMananger : MonoBehaviour
             isWater = false;
             Debug.Log("Roi khoi nuoc");
         }
+    
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -129,6 +135,44 @@ public class PlayerMananger : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    public void IncreaseHealth(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            TakeDamage(1); // Trừ 1 máu khi chạm vào Enemy
+            Destroy(gameObject);
+        }
+        if (collision.CompareTag("Bubble"))
+        { 
+            IncreaseHealth(1);
+        }
+    }
+
+    private void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player Died!");
+        Hit();
+        // Xử lý khi người chơi chết
+        // Hiển thị màn hình Game Over, thực hiện các hành động khác,...
+    }
     public void AddHealth()
     {
         health++;

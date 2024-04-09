@@ -13,11 +13,11 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Animator animator;
     private float jumpCount;
     private float ngang;
-    private PlayerMananger playerMananger;
+    private PlayerManager playerMananger;
     void Start()
     {
         jumpCount = jumpMax;
-        playerMananger = PlayerMananger.instan;
+        playerMananger = PlayerManager.instan;
     }
     void Update()
     {
@@ -60,6 +60,7 @@ public class PlayerMover : MonoBehaviour
         if (playerMananger.GetIsWater() || playerMananger.GetIsGround())
         {
             jumpCount = jumpMax;
+
             animator.SetBool("isGround",true);
         }
         if (!playerMananger.GetIsGround())

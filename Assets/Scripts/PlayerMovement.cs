@@ -51,7 +51,8 @@ public class PlayerMovement : MonoBehaviour
 
         grounded = rigidbody.Raycast(Vector2.down);
 
-        if (grounded) {
+        if (grounded)
+        {
             GroundedMovement();
         }
 
@@ -79,14 +80,18 @@ public class PlayerMovement : MonoBehaviour
         velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
 
         // check if running into a wall
-        if (rigidbody.Raycast(Vector2.right * velocity.x)) {
+        if (rigidbody.Raycast(Vector2.right * velocity.x))
+        {
             velocity.x = 0f;
         }
 
         // flip sprite to face direction
-        if (velocity.x > 0f) {
+        if (velocity.x > 0f)
+        {
             transform.eulerAngles = Vector3.zero;
-        } else if (velocity.x < 0f) {
+        }
+        else if (velocity.x < 0f)
+        {
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
     }
@@ -130,7 +135,8 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.gameObject.layer != LayerMask.NameToLayer("PowerUp"))
         {
             // stop vertical movement if mario bonks his head
-            if (transform.DotTest(collision.transform, Vector2.up)) {
+            if (transform.DotTest(collision.transform, Vector2.up))
+            {
                 velocity.y = 0f;
             }
         }
