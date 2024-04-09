@@ -36,7 +36,7 @@ public class ca1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("nv")) // Kiểm tra xem nhân vật có tag "Player" hay không
+        if (other.CompareTag("Player")) // Kiểm tra xem nhân vật có tag "Player" hay không
         {
             Explode(); // Gọi hàm tạo hiệu ứng nổ
         }
@@ -67,7 +67,7 @@ public class ca1 : MonoBehaviour
         {
             foreach (Collider2D collider in hitca1)
             {
-                if (collider.CompareTag("nv"))
+                if (collider.CompareTag("Player"))
                 {
                     Debug.DrawRay(tamnhin.position, (collider.transform.position - tamnhin.position).normalized * 5f, Color.red);
                     // Lấy khoảng cách từ cá đến người chơi

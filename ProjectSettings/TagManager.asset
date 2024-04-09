@@ -10,19 +10,18 @@ TagManager:
   - Enemy
   - Bubble
   - nv
-
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - PowerUp
-  - Enemy
-  - Shell
-  - Ground
-  - nv
+  - Player
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -45,9 +44,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
-    uniqueID: 1609505275
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

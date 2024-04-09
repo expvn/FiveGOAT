@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerMananger instan;
+    public static PlayerManager instan;
     [SerializeField] private TMP_Text textOxy;
     [SerializeField] private GameObject playerGround;
     [SerializeField] private GameObject playerWater;
@@ -16,15 +16,6 @@ public class PlayerManager : MonoBehaviour
     private int currentHealth;
     private float oxy;
     private bool isWater;
-
-
-    void Start()
-    {
-        oxy = oxyMax;
-        currentHealth = maxHealth;
-
-    public Animator animatorCa1;
-    public Animator animatorNo;
 
     private bool isGround;
     private int health;
@@ -40,21 +31,14 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         oxy = oxyMax;
-
-        animatorCa1 = GetComponent<Animator>();
-        animatorNo = GameObject.Find("no").GetComponent<Animator>(); // Đặt tên đúng cho animator "no"
        
     }
 
     void Update()
     {
-
-        m_Text.SetText(oxy.ToString("0"));
-
-
+        currentHealth = maxHealth;
         GroundOrWater();
-        ModunOxy();
-        
+        ModunOxy();   
     }
 
     private void GroundOrWater()
@@ -85,6 +69,7 @@ public class PlayerManager : MonoBehaviour
             {
                 health--; ;
             }
+            Debug.Log("Ok em ");
         }
         else
         {
@@ -184,8 +169,10 @@ public class PlayerManager : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Died!");
+        Hit();
         // Xử lý khi người chơi chết
         // Hiển thị màn hình Game Over, thực hiện các hành động khác,...
+    }
     public void AddHealth()
     {
         health++;
