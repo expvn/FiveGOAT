@@ -9,11 +9,15 @@ public class PlayerMananger : MonoBehaviour
     [SerializeField] private float oxyMax;
     private float oxy;
     private bool isWater;
+    public Animator animatorCa1;
+    public Animator animatorNo;
 
     // Start is called before the first frame update
     void Start()
     {
         oxy = oxyMax;
+        animatorCa1 = GetComponent<Animator>();
+        animatorNo = GameObject.Find("no").GetComponent<Animator>(); // Đặt tên đúng cho animator "no"
     }
 
     // Update is called once per frame
@@ -53,6 +57,7 @@ public class PlayerMananger : MonoBehaviour
           
             isWater = false;
         }
+    
     }
 
 }

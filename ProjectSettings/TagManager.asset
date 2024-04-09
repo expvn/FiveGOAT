@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Water
   - Ground
+  - Enemy
+  - nv
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Enemy
   - Shell
   - Ground
-  - 
+  - nv
   - 
   - 
   - 
