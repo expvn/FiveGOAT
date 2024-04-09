@@ -33,7 +33,7 @@ public class PlayerMover : MonoBehaviour
         if (collision.CompareTag("Water"))
         {
             jumpCount = jumpMax;
-            Debug.Log("Nhay ðýõc hoi");
+            // Debug.Log("Nhay de hoi");
         }
     }
  
@@ -42,7 +42,7 @@ public class PlayerMover : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             jumpCount = jumpMax;
-            Debug.Log("Nhay ðýõc hoi");
+            // Debug.Log("Nhay de hoi");
         }
     }
 }
