@@ -13,9 +13,14 @@ public class PlayerMananger : MonoBehaviour
     [SerializeField] private float oxyMax;
     private float oxy;
     private bool isWater;
+
+    public Animator animatorCa1;
+    public Animator animatorNo;
+
     private bool isGround;
     private int health;
     private int coin;
+
 
 
     private void Awake()
@@ -26,6 +31,9 @@ public class PlayerMananger : MonoBehaviour
     void Start()
     {
         oxy = oxyMax;
+
+        animatorCa1 = GetComponent<Animator>();
+        animatorNo = GameObject.Find("no").GetComponent<Animator>(); // Đặt tên đúng cho animator "no"
        
     }
 
@@ -100,6 +108,7 @@ public class PlayerMananger : MonoBehaviour
             isWater = false;
             Debug.Log("Roi khoi nuoc");
         }
+    
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
