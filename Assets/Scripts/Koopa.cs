@@ -14,11 +14,16 @@ public class Koopa : MonoBehaviour
         {
             Player player = collision.gameObject.GetComponent<Player>();
 
-            if (player.starpower) {
+            if (player.starpower)
+            {
                 Hit();
-            } else if (collision.transform.DotTest(transform, Vector2.down)) {
+            }
+            else if (collision.transform.DotTest(transform, Vector2.down))
+            {
                 EnterShell();
-            }  else {
+            }
+            else
+            {
                 player.Hit();
             }
         }
@@ -37,9 +42,12 @@ public class Koopa : MonoBehaviour
             {
                 Player player = other.GetComponent<Player>();
 
-                if (player.starpower) {
+                if (player.starpower)
+                {
                     Hit();
-                } else {
+                }
+                else
+                {
                     player.Hit();
                 }
             }
@@ -82,7 +90,8 @@ public class Koopa : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        if (pushed) {
+        if (pushed)
+        {
             Destroy(gameObject);
         }
     }

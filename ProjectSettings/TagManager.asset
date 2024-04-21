@@ -7,6 +7,10 @@ TagManager:
   - Water
   - Ground
   - Coin
+  - Enemy
+  - Bubble
+  - nv
+
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Enemy
   - Shell
   - Ground
-  - 
+  - nv
   - 
   - 
   - 
