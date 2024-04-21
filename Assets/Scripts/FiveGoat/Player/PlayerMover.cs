@@ -13,11 +13,11 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Animator animator;
     private float jumpCount;
     private float ngang;
-    private PlayerMananger playerMananger;
+    private PlayerManager playerMananger;
     void Start()
     {
         jumpCount = jumpMax;
-        playerMananger = PlayerMananger.instan;
+        playerMananger = PlayerManager.instan;
     }
     void Update()
     {
