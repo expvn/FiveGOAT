@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMover : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] float jumpMax;
     [SerializeField] float jumpHigh;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject sword;
     private float jumpCount;
     private float ngang;
     private PlayerManager playerMananger;
@@ -40,7 +42,6 @@ public class PlayerMover : MonoBehaviour
     }
     private void MoveOnGround()
     {
-        ngang = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(ngang * toDo, rb.velocity.y);
         if (ngang != 0)
         {
@@ -51,12 +52,7 @@ public class PlayerMover : MonoBehaviour
             animator.SetBool("isRun", false);
         }
         Flip();
-        if (Input.GetAxisRaw("Jump")>0 && jumpCount > 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpHigh);
-            jumpCount--;
-        }
-       animator.SetFloat("Jump",rb.velocity.y);
+        animator.SetFloat("Jump", rb.velocity.y);
         if (playerMananger.GetIsWater() || playerMananger.GetIsGround())
         {
             jumpCount = jumpMax;
@@ -70,7 +66,6 @@ public class PlayerMover : MonoBehaviour
     }
     private void MoveOnWater()
     {
-        ngang = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(ngang * toDo, rb.velocity.y);
         if (ngang > 0)
         {
@@ -81,11 +76,6 @@ public class PlayerMover : MonoBehaviour
             animator.SetFloat("Move", ngang * -1);
         }
         Flip();
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpHigh);
-            jumpCount--;
-        }
         if (!playerMananger.GetIsWater())
         {
             animator.SetFloat("Jump", rb.velocity.y);
@@ -116,5 +106,37 @@ public class PlayerMover : MonoBehaviour
     {
         playerMananger.EndGame();
         yield return null;
+    }
+    public void OnMove(InputAction.CallbackContext callback)
+    {
+        ngang = callback.ReadValue<Vector2>().x;
+        Debug.Log("ngang = "+ngang);
+    }
+    public void OnJump(InputAction.CallbackContext callback)
+    {
+        if (callback.performed&& jumpCount > 0)
+        {
+                rb.velocity = new Vector2(rb.velocity.x, jumpHigh);
+                jumpCount--;
+
+            
+        }
+    }
+    public void OnAttack(InputAction.CallbackContext callback)
+    {
+        if (callback.performed)
+        {
+            CombatMananger.instance.OnAttack();
+            Debug.Log("Dang tan cong "+ CombatMananger.instance.canReceiveInput);
+        }
+    }
+
+    public void ShowSword()
+    {
+        sword.SetActive(true);
+    }
+    public void HideSword()
+    {
+        sword.SetActive(false);
     }
 }

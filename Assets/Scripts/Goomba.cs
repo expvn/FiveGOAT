@@ -1,33 +1,43 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
 
 public class Goomba : MonoBehaviour
 {
     public Sprite flatSprite;
+    private void Start()
+    {
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        /* if (collision.gameObject.CompareTag("Player"))
+         {
+             Player player = collision.gameObject.GetComponent<Player>();
+
+             if (player.starpower)
+             {
+                 Hit();
+             }
+             else if (collision.transform.DotTest(transform, Vector2.down))
+             {
+                 Flatten();
+             }
+             else
+             {
+                 player.Hit();
+             }
+         }*/
         if (collision.gameObject.CompareTag("Player"))
         {
-            Player player = collision.gameObject.GetComponent<Player>();
-
-            if (player.starpower)
-            {
-                Hit();
-            }
-            else if (collision.transform.DotTest(transform, Vector2.down))
-            {
-                Flatten();
-            }
-            else
-            {
-                player.Hit();
-            }
+            float direction = transform.GetComponent<EntityMovement>().direction.x;
+            collision.transform.GetComponent<PlayerManager>().OnHit(direction);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Shell"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Shell")||other.CompareTag("Sword"))
         {
             Hit();
         }

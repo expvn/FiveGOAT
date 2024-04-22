@@ -120,8 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc521335fe27ed48adbcf52eac7db60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  bubblePrefab: {fileID: 3306459108803389879, guid: 7e11dce6012b87245970e6fe18594f38, type: 3}
+  bubblePrefab: {fileID: 7445014359324349615, guid: 0ce9f6330bbb90f46b0c7c4fb9fb0208, type: 3}
   speed: 1
   distanceBetween: 4
   bubbleSpawnInterval: 5

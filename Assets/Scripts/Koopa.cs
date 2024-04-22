@@ -10,7 +10,7 @@ public class Koopa : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!shelled && collision.gameObject.CompareTag("Player"))
+        /*if (!shelled && collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
 
@@ -26,6 +26,12 @@ public class Koopa : MonoBehaviour
             {
                 player.Hit();
             }
+        }*/
+        //
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            float direction = transform.GetComponent<EntityMovement>().direction.x;
+            collision.transform.GetComponent<PlayerManager>().OnHit(direction);
         }
     }
 

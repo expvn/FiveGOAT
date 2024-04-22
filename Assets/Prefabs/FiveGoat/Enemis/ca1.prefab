@@ -125,7 +125,7 @@ MonoBehaviour:
   tamnhin: {fileID: 8888707345216813242}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   distanceThreshold: 2
   originalPositionX: 0
   rotationSpeed: 5

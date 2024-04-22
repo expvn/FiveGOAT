@@ -4,24 +4,16 @@ using UnityEngine;
 
 public class KeyScript : MonoBehaviour
 {
-     
     private bool haskey;
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.collider.tag == "Player")
+        if (other.collider.tag == AllTag.KEY_TAG_PLAYER)
         {
             haskey = true;
             GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
-    private int GetKeyStatus()
+    public int GetKeyStatus()
     {
         if (haskey == true)
         {

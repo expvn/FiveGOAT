@@ -14,6 +14,8 @@ public class Fish3 : MonoBehaviour
 
     //Th?y ng??i ch?i(m?t nó nhìn v? ng??i ch?i) ; t?ng t?c lên 8f và di chuy?n v? phía ng??i ch?i
     //nâng cao : nó húc tr??t . nó ??ng ?? 2s -> quay l?i 
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float normalSpeed;
     public SpriteRenderer spriteRenderer;
     public Animator animator;
     public Transform boar;
@@ -27,7 +29,7 @@ public class Fish3 : MonoBehaviour
 
     public bool atk;
 
-    float speedMove = 5f;
+    float speedMove ;
     bool isFacingRight;
     float timer;
     private Rigidbody2D rb;
@@ -35,6 +37,7 @@ public class Fish3 : MonoBehaviour
     void Start()
     {
         rb = GetComponentInChildren<Rigidbody2D>();
+        speedMove = normalSpeed;
     }
 
     // Update is called once per frame
@@ -125,7 +128,7 @@ public class Fish3 : MonoBehaviour
         if (hit)
         {
             Debug.DrawRay(boarcheck.position, dirition * hit.distance, Color.red);
-            speedMove = 8f;
+            speedMove = maxSpeed;
             
         }
         else

@@ -8,7 +8,7 @@ public class Cotroller : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Player>().Hit();
+            collision.gameObject.GetComponent<PlayerManager>().Die();
         }
     }
 }

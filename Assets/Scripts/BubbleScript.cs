@@ -39,7 +39,7 @@ public class BubbleScript : MonoBehaviour
             {
                 float docao = 1f;
                 Vector2 niewpositon = playertrform.position + new Vector3(-1f,docao,0f);
-
+                playertrform.GetComponent<PlayerManager>().AddOxy();
                 playertrform.position = niewpositon;
             }
             
