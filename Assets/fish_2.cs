@@ -29,7 +29,15 @@ public class fish_2 : MonoBehaviour
             if (distance < distanceBetween)
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-                transform.rotation = Quaternion.identity;
+                // Xoay cá dựa trên hướng di chuyển
+                if (direction.x < 0) // Xoay qua trai
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0); // Xoay 180 độ quanh trục Y
+                }
+                else if (direction.x > 0) // Moving phai
+                {
+                    transform.rotation = Quaternion.identity; // Đặt lại vòng quay
+                }
             }
         }
     }
