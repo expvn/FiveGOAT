@@ -5,153 +5,134 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Fish3 : MonoBehaviour
 {
-  
+
     //Di chuy?n ??n ?i?m A
-    //Ngh? 2s 
+    //sau ?ó ngh? 2s
     //Quay ??u và ?i ??n ?i?m B
     //??ng ngh? 2s
-    //T?c ?? di chuy?n là 5f
-    //th?y ng??i ch?i (m?t nó nhìn v? phía ng??i ch?i ): t?ng t?c lên 8f và di chuy?n v? phía ng??i ch?i 
-    //nâng cao: nó h?c tr??t, nó ??ng ?? 2s -> quay l?i -> 
+    //T?c ?? di chuy?n c?a nó là 5f 
 
-    public SpriteRenderer sR;
-   
+    //Th?y ng??i ch?i(m?t nó nhìn v? ng??i ch?i) ; t?ng t?c lên 8f và di chuy?n v? phía ng??i ch?i
+    //nâng cao : nó húc tr??t . nó ??ng ?? 2s -> quay l?i 
+    public SpriteRenderer spriteRenderer;
+    public Animator animator;
     public Transform boar;
     public Transform posA;
     public Transform posB;
 
     public Transform boarcheck;
-    private Vector3 dirition;
+    private Vector2 dirition;
     public LayerMask playerLayer;
     private RaycastHit2D hitPlayer;
 
     public bool atk;
 
-    float speedMove = 3f;
-    bool isFaceRight;
-   
-
-    //OverLapCheckGround
-    public Transform checkGroundPos;
-    public LayerMask groundLayer;
-    public bool isGround;
-    //
-
-
-    public float chaseSpeed;
-    public float detectionRange;
-    private bool isFacingRight = true;
-    private bool isChasingPlayer = false;
-    public Transform target;
-
-
-
-
-    //public float knockbackForce = 3f;
-    //private bool isPlayerHit = false;
-    //private Rigidbody2D playerRigidbody;
-
-
-
-
-    // Start is called before the first frame update
+    float speedMove = 5f;
+    bool isFacingRight;
+    float timer;
+    private Rigidbody2D rb;
+    
     void Start()
     {
-        target = null;
+        rb = GetComponentInChildren<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (isChasingPlayer)
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            ChasePlayer();
+            Destroy(gameObject);
         }
-        else
-        {
-            MoveBetweenPoints();
-        }
-       
-    }
 
-    private void MoveBetweenPoints()
-    {
-        if (isFacingRight)
+        if (isFacingRight) //Ph?i di chuy?n qu B
         {
+
+            dirition = Vector2.left;
             if (Vector2.Distance(boar.position, posB.position) > 0.1f)
             {
-                boar.position = Vector2.MoveTowards(boar.position, posB.position, speedMove * Time.fixedDeltaTime);
+                boar.position = Vector2.MoveTowards(boar.position, posB.position, speedMove * Time.deltaTime);
+                animator.Play("fish_3");
             }
             else
             {
-                isFacingRight = false;
-                sR.flipX = false;
+                timer += Time.deltaTime;
+                if (timer >= 2f)
+                {
+                    spriteRenderer.flipX = false;
+                    isFacingRight = false;
+                    timer = 0;
+                }
+                else if (timer <= 2f)
+                {
+                    animator.Play("fish_3");
+                }
+
             }
         }
-        else
+        else //m?t quay v? trái di chuy?n qua A
         {
+            dirition = Vector2.right;
             if (Vector2.Distance(boar.position, posA.position) > 0.1f)
             {
-                boar.position = Vector2.MoveTowards(boar.position, posA.position, speedMove * Time.fixedDeltaTime);
+                boar.position = Vector2.MoveTowards(boar.position, posA.position, speedMove * Time.deltaTime);
+                animator.Play("fish_3");
             }
             else
             {
-                isFacingRight = true;
-                sR.flipX = true;
+
+                timer += Time.deltaTime;
+                if (timer > 2f)
+                {
+                    spriteRenderer.flipX = true;
+                    isFacingRight = true;
+                    timer = 0;
+                }
+                else
+                {
+                    animator.Play("fish_3");
+                }
+
             }
         }
-    }
 
-    private void ChasePlayer()
-    {
-        if (target != null)
-        {
-            if (Vector2.Distance(boar.position, target.position) > 0.1f)
-            {
-                boar.position = Vector2.MoveTowards(boar.position, target.position, chaseSpeed * Time.fixedDeltaTime);
-            }
-        }
+        
     }
-
 
     private void FixedUpdate()
     {
-        OverlapDetect();
+      //  RayDetect();
+        Atk();
     }
 
-    private void OverlapDetect()
+    public void RayDetect()
     {
-        if (isChasingPlayer)
-        {
-            return;
-        }
+        hitPlayer = Physics2D.Raycast(boarcheck.position, dirition, 10f, playerLayer);
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(boarcheck.position, detectionRange, playerLayer);
-
-        if (colliders.Length > 0)
+        if (hitPlayer)
         {
-            target = colliders[0].transform;
-            isChasingPlayer = true;
-            speedMove = chaseSpeed;
+            Debug.DrawRay(boarcheck.position, dirition * hitPlayer.distance, Color.red);
         }
         else
         {
-            target = null;
-            isChasingPlayer = false;
-            speedMove = 3f;
+            Debug.DrawRay(boarcheck.position, dirition * 10f, Color.green);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Atk()
     {
-        if (collision.CompareTag("Player"))
+        RaycastHit2D hit = Physics2D.Raycast(boarcheck.position, dirition, 10f, playerLayer);
+
+        if (hit)
         {
-            Destroy(gameObject, 6f);
+            Debug.DrawRay(boarcheck.position, dirition * hit.distance, Color.red);
+            speedMove = 8f;
+            
+        }
+        else
+        {
+            Debug.DrawRay(boarcheck.position, dirition * 10f, Color.green);
+            speedMove = 5f;
         }
     }
 
-   
 }
-
-
-

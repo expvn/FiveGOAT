@@ -335,7 +335,7 @@ MonoBehaviour:
   zoneStop: {fileID: 8539680542555071826}
   tuong:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   doDaiTia: 0.5
   valueTocDo: 5
 --- !u!114 &7337235046779170607
