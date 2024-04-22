@@ -40,6 +40,7 @@ public class fish_2 : MonoBehaviour
                 }
             }
         }
+
     }
 
     // Hàm sinh bong bóng

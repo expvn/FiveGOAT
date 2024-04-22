@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 867601911}
   - component: {fileID: 867601914}
   - component: {fileID: 867601913}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Square (1)
   m_TagString: Water
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 2003854223}
   - component: {fileID: 2003854222}
   - component: {fileID: 2003854224}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Ground
   m_Icon: {fileID: 0}

@@ -9,11 +9,13 @@ public class EntityMovement : MonoBehaviour
 
     private new Rigidbody2D rigidbody;
     private Vector2 velocity;
+    private float ngang;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         enabled = false;
+        ngang = -1f;
     }
 
     private void OnBecameVisible()
