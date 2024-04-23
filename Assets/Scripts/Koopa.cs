@@ -87,7 +87,7 @@ public class Koopa : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Shell");
     }
 
-    private void Hit()
+    public void Hit()
     {
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<DeathAnimation>().enabled = true;

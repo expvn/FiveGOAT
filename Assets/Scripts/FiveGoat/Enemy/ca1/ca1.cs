@@ -36,9 +36,12 @@ public class ca1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // Kiểm tra xem nhân vật có tag "Player" hay không
+        if (other.CompareTag(AllTag.KEY_TAG_PLAYER)) // Kiểm tra xem nhân vật có tag "Player" hay không
         {
-            Explode(); // Gọi hàm tạo hiệu ứng nổ
+            Explode();
+            GameObject player = other.gameObject;
+            player.GetComponent<PlayerManager>().Die();
+            // Gọi hàm tạo hiệu ứng nổ
         }
     }
 

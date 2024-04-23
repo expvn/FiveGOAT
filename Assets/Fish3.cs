@@ -65,6 +65,7 @@ public class Fish3 : MonoBehaviour
                     spriteRenderer.flipX = false;
                     isFacingRight = false;
                     timer = 0;
+                    speedMove = normalSpeed;
                 }
                 else if (timer <= 2f)
                 {
@@ -90,6 +91,7 @@ public class Fish3 : MonoBehaviour
                     spriteRenderer.flipX = true;
                     isFacingRight = true;
                     timer = 0;
+                    speedMove = normalSpeed;
                 }
                 else
                 {
@@ -134,8 +136,7 @@ public class Fish3 : MonoBehaviour
         else
         {
             Debug.DrawRay(boarcheck.position, dirition * 10f, Color.green);
-            speedMove = 5f;
+            
         }
     }
-
 }

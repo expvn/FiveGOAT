@@ -17,7 +17,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float force;
     [SerializeField] private float timeFore;
     [SerializeField] private float timeMax;
-    [SerializeField] private int maxHealth = 10;
+    [SerializeField] private int maxHealth ;
+    [SerializeField] private int setHealth ;
     [SerializeField] private LayerMask ground;
     [SerializeField] private List<Image> healths;
     private Rigidbody2D rb;
@@ -38,7 +39,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        health = 1;
+        health = setHealth;
         instan = this;
         force = 3f;
         timeFore = 0.25f;
@@ -66,15 +67,15 @@ public class PlayerManager : MonoBehaviour
     }
     void Update()
     {
-        if(isDead)
+        HeathManager();
+        if (isDead)
         {
             return;
         }
-        currentHealth = maxHealth;
         GroundOrWater();
         ModunOxy();
         ModunTime();
-        HeathManager();
+        
     }
 
     private void ModunTime()
@@ -151,10 +152,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public bool checkeSuvive()
-    {
-        return health < 1 ? true : false;
-    }
+ 
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -189,10 +187,10 @@ public class PlayerManager : MonoBehaviour
 
     public void IncreaseHealth(int amount)
     {
-        currentHealth += amount;
+        health += amount;
         if (currentHealth > maxHealth)
         {
-            currentHealth = maxHealth;
+            health = maxHealth;
         }
     }
 
@@ -208,19 +206,6 @@ public class PlayerManager : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag(AllTag.KEY_TAG_ENEMY))
-        {
-            if (rb.Raycast(Vector2.up))
-            {
-                Debug.Log("cham quai");
-                collision.transform.GetComponent<Goomba>().Hit();
-            }
-            else
-            {   
-                Debug.Log("0o");
-                OnHit(collision.transform.GetComponent<EntityMovement>().direction.x);
-            }
-        }
         if (collision.transform.CompareTag(AllTag.KEY_TAG_KEY))
         {
             int i = collision.transform.GetComponent<KeyScript>().GetKeyStatus();
@@ -256,11 +241,11 @@ public class PlayerManager : MonoBehaviour
         directionKnock = direction;
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        health -= damage;
 
-        if (currentHealth <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -269,7 +254,7 @@ public class PlayerManager : MonoBehaviour
     public void Die()
     {
         Debug.Log("Player Died!");
-        Hit();
+        isDead = true;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         // Xử lý khi người chơi chết
         // Hiển thị màn hình Game Over, thực hiện các hành động khác,...
@@ -277,7 +262,11 @@ public class PlayerManager : MonoBehaviour
     public void AddHealth()
     {
         health++;
+        if(health >=maxHealth) {
+        health = maxHealth;
+        }
     }
+ 
     public void AddCoin()
     {
         coin += 200;
@@ -288,7 +277,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void Hit()
     {
-        EndGame();
+        KnockBack();
     }
 
     public void CheckIsGround()
@@ -339,4 +328,9 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+    public bool GetIsDead()
+    {
+        return isDead;
+    }
 }
+
