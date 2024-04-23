@@ -13,14 +13,15 @@ public class BubbleScript : MonoBehaviour
 
     private static bool hasSpawnedHeathOnce = false; // Biến để kiểm tra đã sinh ra key ít nhất một lần hay chưa
 
+    private bool hasTriggered = false; 
+    private Collider2D bubbleCollider; // Lưu trữ Collider2D của Bubble
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        bubbleCollider = GetComponent<Collider2D>(); // Lấy Collider2D của Bubble
     }
-    private void Update() {
-        
-    }
+
     void FixedUpdate()
     {
         rb.velocity = new Vector2(rb.velocity.x, tocdodilen);
@@ -28,12 +29,13 @@ public class BubbleScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (!hasTriggered && other.CompareTag("Player"))
         {
-            
+            hasTriggered = true;
             SinhVatPham();
             anim.Play("bubble_no");
 
+            //Lực Đẩy Nhân Vật
             Transform playertrform = other.transform;
             if (playertrform != null)
             {
@@ -42,7 +44,9 @@ public class BubbleScript : MonoBehaviour
 
                 playertrform.position = niewpositon;
             }
-            
+
+            // Tắt Collider của Bubble
+            bubbleCollider.enabled = false;
         }
     }
 
@@ -50,9 +54,10 @@ public class BubbleScript : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
     public void SinhVatPham()
     {
-        int getNumber = Random.Range(1, 4);
+        int getNumber = Random.Range(2, 4);
 
         if (getNumber == 3 && (hasSpawnedHeath || hasSpawnedHeathOnce))
         {
