@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3280963248985661346}
   - component: {fileID: 6539314719710723102}
   - component: {fileID: 5883386318785356534}
+  - component: {fileID: 7065457000850509944}
   - component: {fileID: 3386853129741953736}
   m_Layer: 0
   m_Name: fish_2
@@ -122,8 +123,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 7445014359324349615, guid: 0ce9f6330bbb90f46b0c7c4fb9fb0208, type: 3}
   speed: 1
-  distanceBetween: 4
+  distanceBetween: 10
   bubbleSpawnInterval: 5
+--- !u!114 &7065457000850509944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551990081111987065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d1828ff242f8f49a28257e9eda3129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damamge: 1
 --- !u!58 &3386853129741953736
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,6 +170,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.68826354, y: -0.58}
   serializedVersion: 2
-  m_Radius: 0.73333335
+  m_Radius: 1.4215969

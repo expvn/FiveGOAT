@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3611261760737888596}
   - component: {fileID: 3611261760737888597}
   - component: {fileID: 2152708057463308329}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Koopa
   m_TagString: Enemy
   m_Icon: {fileID: 0}

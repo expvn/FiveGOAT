@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class Dialogue : MonoBehaviour
 {
@@ -34,7 +36,10 @@ public class Dialogue : MonoBehaviour
                 run = false;
             }
         }
+        
     }
+
+
     public void NextLine()
     {
         if (index<allDialogue.Length-1)
@@ -67,5 +72,6 @@ public class Dialogue : MonoBehaviour
             message.text += c;
             yield return new WaitForSeconds(wordSpeed);
         }
+        Debug.Log("Dang viet");
     }
 }

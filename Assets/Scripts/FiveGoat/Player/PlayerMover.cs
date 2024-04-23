@@ -19,10 +19,16 @@ public class PlayerMover : MonoBehaviour
     void Start()
     {
         jumpCount = jumpMax;
-        playerMananger = PlayerManager.instan;
+        playerMananger = transform.parent.GetComponent<PlayerManager>();
     }
     void Update()
     {
+        playerMananger = transform.parent.GetComponent<PlayerManager>();
+        if (playerMananger.GetIsDead())
+        {
+            StartCoroutine(Dead());
+            return;
+        }
         if (playerMananger.GetIsWater())
         {
             MoveOnWater();
@@ -31,15 +37,9 @@ public class PlayerMover : MonoBehaviour
         {
             MoveOnGround();
         }
-        CheckSuvive();
+        
     }
-    private void CheckSuvive()
-    {
-        if (playerMananger.checkeSuvive())
-        {
-            StartCoroutine(Dead());
-        }
-    }
+    
     private void MoveOnGround()
     {
         rb.velocity = new Vector2(ngang * toDo, rb.velocity.y);
@@ -92,7 +92,6 @@ public class PlayerMover : MonoBehaviour
     }
     IEnumerator Dead()
     {
-
        yield return PlayAnimationDead();
        yield return new WaitForSeconds(2f);
         yield return StopTime();

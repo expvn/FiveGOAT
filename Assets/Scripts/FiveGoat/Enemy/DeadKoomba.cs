@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeadGoomba : MonoBehaviour
+public class DeadKoomba : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -27,8 +27,8 @@ public class DeadGoomba : MonoBehaviour
     {
         if (collision.CompareTag(AllTag.KEY_TAG_SWORD))
         {
-            Goomba goomba = transform.GetComponent<Goomba>();
-            goomba.Hit();
+            Koopa koopa = transform.GetComponent<Koopa>();
+            koopa.Hit();
         }
     }
 }
