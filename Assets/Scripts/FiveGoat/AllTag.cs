@@ -14,4 +14,11 @@ public class AllTag : MonoBehaviour
     public static string KEY_TAG_KEY = "Key";
     public static string KEY_TAG_PIPE = "Pipe";
     public static string KEY_TAG_HEART = "Heart";
+
+    public static string KEY_TAG_KHIEN = "Khien";
+
+    public static string KEY_TAG_KHIENITEM = "KhienItem";
+
+    public static string KEY_TAG_BULLETITEM = "BulletItem";
+    public static string KEY_TAG_GUNITEM = "GunItem";
 }

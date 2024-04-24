@@ -7,15 +7,23 @@ using UnityEngine.InputSystem;
 
 public class PlayerMover : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb;
+    public static PlayerMover Intance {get; private set;}
+    public Rigidbody2D rb;
     [SerializeField] float toDo;
     [SerializeField] float jumpMax;
     [SerializeField] float jumpHigh;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject sword;
+    public GameObject gun;
+    
+    
     private float jumpCount;
     private float ngang;
     private PlayerManager playerMananger;
+
+    private void Awake() {
+        Intance = this;
+    }
     void Start()
     {
         jumpCount = jumpMax;
@@ -37,9 +45,11 @@ public class PlayerMover : MonoBehaviour
         {
             MoveOnGround();
         }
+
+        RotaGun();
         
     }
-    
+
     private void MoveOnGround()
     {
         rb.velocity = new Vector2(ngang * toDo, rb.velocity.y);
@@ -57,7 +67,7 @@ public class PlayerMover : MonoBehaviour
         {
             jumpCount = jumpMax;
 
-            animator.SetBool("isGround",true);
+            animator.SetBool("isGround", true);
         }
         if (!playerMananger.GetIsGround())
         {
@@ -80,7 +90,7 @@ public class PlayerMover : MonoBehaviour
         {
             animator.SetFloat("Jump", rb.velocity.y);
         }
-        if (playerMananger.GetIsWater()||playerMananger.GetIsGround())
+        if (playerMananger.GetIsWater() || playerMananger.GetIsGround())
         {
             jumpCount = jumpMax;
         }
@@ -88,18 +98,18 @@ public class PlayerMover : MonoBehaviour
     private void Flip()
     {
         if (ngang == 0) return;
-        transform.localScale = new Vector3(ngang,transform.localScale.y);
+        transform.localScale = new Vector3(ngang, transform.localScale.y);
     }
     IEnumerator Dead()
     {
-       yield return PlayAnimationDead();
-       yield return new WaitForSeconds(2f);
+        yield return PlayAnimationDead();
+        yield return new WaitForSeconds(2f);
         yield return StopTime();
     }
     IEnumerator PlayAnimationDead()
     {
         animator.Play("Player_die");
-       yield return null;
+        yield return null;
     }
     IEnumerator StopTime()
     {
@@ -109,16 +119,16 @@ public class PlayerMover : MonoBehaviour
     public void OnMove(InputAction.CallbackContext callback)
     {
         ngang = callback.ReadValue<Vector2>().x;
-        Debug.Log("ngang = "+ngang);
+        Debug.Log("ngang = " + ngang);
     }
     public void OnJump(InputAction.CallbackContext callback)
     {
-        if (callback.performed&& jumpCount > 0)
+        if (callback.performed && jumpCount > 0)
         {
-                rb.velocity = new Vector2(rb.velocity.x, jumpHigh);
-                jumpCount--;
+            rb.velocity = new Vector2(rb.velocity.x, jumpHigh);
+            jumpCount--;
 
-            
+
         }
     }
     public void OnAttack(InputAction.CallbackContext callback)
@@ -126,7 +136,7 @@ public class PlayerMover : MonoBehaviour
         if (callback.performed)
         {
             CombatMananger.instance.OnAttack();
-            Debug.Log("Dang tan cong "+ CombatMananger.instance.canReceiveInput);
+            Debug.Log("Dang tan cong " + CombatMananger.instance.canReceiveInput);
         }
     }
 
@@ -138,4 +148,20 @@ public class PlayerMover : MonoBehaviour
     {
         sword.SetActive(false);
     }
+
+    void RotaGun()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            animator.SetTrigger("gun");
+            
+        }
+
+    }
+
+    public void BulletSih()
+    {
+        Gun.Instance.SinhBullet();
+    }
+
 }
