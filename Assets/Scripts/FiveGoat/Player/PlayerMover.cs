@@ -153,7 +153,14 @@ public class PlayerMover : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            animator.SetTrigger("gun");
+            if (gun != null && gun.activeSelf)
+            {
+                animator.SetTrigger("gun");
+            }else
+            {
+                Debug.Log("chưa có súng");
+            }
+            
             
         }
 
