@@ -23,7 +23,7 @@ public class Enemy2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (collider2D.CompareTag("Player"))
+        if (collider2D.CompareTag(AllTag.KEY_TAG_PLAYER))
         {
             // Trừ máu của Player
             PlayerManager.instan.TakeDamage(3);
@@ -42,11 +42,15 @@ public class Enemy2 : MonoBehaviour
                 Debug.Log("Phai");
             }
         }
+        if (collider2D.CompareTag(AllTag.KEY_TAG_SWORD))
+        {
+            animator.Play("Hit");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collider2D)
     {
-        if (collider2D.CompareTag("Player"))
+        if (collider2D.CompareTag(AllTag.KEY_TAG_PLAYER))
         {
             animator.Play("idle");
             Debug.Log("Dung im");
