@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int setHealth ;
     [SerializeField] private LayerMask ground;
     [SerializeField] private List<Image> healths;
+
+    public GameObject khien;
     private Rigidbody2D rb;
     private int currentHealth;
     private float oxy;
@@ -36,6 +38,8 @@ public class PlayerManager : MonoBehaviour
     private float time;
     private bool isDead;
 
+    private float tgMatKhien = 10f;
+    float timer;
 
     private void Awake()
     {
@@ -49,6 +53,7 @@ public class PlayerManager : MonoBehaviour
         showMessage = false;
         Time.timeScale = 1f;
         isDead = false;
+        timer = 0;
     }
     void Start()
     {
@@ -56,6 +61,7 @@ public class PlayerManager : MonoBehaviour
         time = timeMax;
         coin = 0;
         textCoin.SetText(coin.ToString());
+        
     }
     private void FixedUpdate()
     {
@@ -67,6 +73,7 @@ public class PlayerManager : MonoBehaviour
     }
     void Update()
     {
+        timer +=Time.deltaTime;
         HeathManager();
         if (isDead)
         {
@@ -75,6 +82,7 @@ public class PlayerManager : MonoBehaviour
         GroundOrWater();
         ModunOxy();
         ModunTime();
+        TGHetKhien();
         
     }
 
@@ -159,6 +167,21 @@ public class PlayerManager : MonoBehaviour
         if (collision.CompareTag("Water"))
         {
             isWater = true;
+        }
+        if (collision.CompareTag("GunItem"))
+        {
+            PlayerMover.Intance.gun.SetActive(true);
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("BulletItem"))
+        {
+            Gun.Instance.TongSoDan++;
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("KhienItem"))
+        {
+            khien.SetActive(true);
+            Destroy(collision.gameObject);
         }
     }
 
@@ -331,6 +354,14 @@ public class PlayerManager : MonoBehaviour
     public bool GetIsDead()
     {
         return isDead;
+    }
+
+    public void TGHetKhien()
+    {
+        if (timer >= tgMatKhien)
+        {
+            khien.SetActive(false);
+        }
     }
 }
 
