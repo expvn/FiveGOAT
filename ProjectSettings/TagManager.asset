@@ -13,6 +13,10 @@ TagManager:
   - Key
   - Pipe
   - Heart
+  - GunItem
+  - BulletItem
+  - KhienItem
+  - Khien
   layers:
   - Default
   - TransparentFX
@@ -22,7 +26,7 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - kkkk
+  - 
   - 
   - 
   - 
