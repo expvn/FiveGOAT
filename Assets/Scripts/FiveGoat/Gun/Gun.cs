@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
 
     [SerializeField] private GameObject bullet;
 
-    public float TongSoDan = 0;
+    private float TongSoDan = 0;
     public Transform checkgun;
 
     private void Awake()
@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        TongSoDan = PlayerManager.instan.GetDan();
     }
 
     public void SinhBullet()
@@ -33,6 +33,7 @@ public class Gun : MonoBehaviour
             Vector2 moveDirection = transform.parent.localScale;
             bulletScript.SetMoveDirection(moveDirection);
             TongSoDan--;
+            PlayerManager.instan.SetDan(TongSoDan);
         }
 
     }

@@ -17,7 +17,7 @@ public class Move : MonoBehaviour
     private float tocDo;
     public static Move istan;
     private Vector3 tempPositon;
-
+    bool active;
 
     void Start()
     {
@@ -26,10 +26,12 @@ public class Move : MonoBehaviour
         huong = transform.localScale.x;
         tocDo = valueTocDo;
         istan = this;
+        active = false;
     }
 
     private void FixedUpdate()
     {
+        if (!active) return;
         if(tempPositon == transform.position&&tocDo!=0)
         {
             huong*=-1;
@@ -37,6 +39,12 @@ public class Move : MonoBehaviour
        tempPositon = transform.position;
         rb.velocity = new Vector2(tocDo * huong, rb.velocity.y);
         transform.localScale = new Vector3(huong, transform.localScale.y);
+    }
+    private void OnBecameVisible()
+    {
+        gameObject.GetComponent<HeartManager>().enabled = true;
+        gameObject.GetComponent<Attack>().enabled = true;
+        active = true;
     }
     private void Update()
     {
@@ -63,12 +71,5 @@ public class Move : MonoBehaviour
     {
         return valueTocDo;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Player player = collision.gameObject.GetComponent<Player>();
-            player.Hit();
-        }
-    }
+   
 }

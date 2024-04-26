@@ -72,17 +72,10 @@ public class Quai3Move : MonoBehaviour
         Flip();
         Attacked();
         FindPlayer();
-        Hit();
+       
     }
 
-    private void Hit()
-    {
-        if (isHit)
-        {
-            transform.position = new Vector2((transform.position.x + force * Time.deltaTime) * directionKnock, (transform.position.y + force) * Time.deltaTime);
-        }
-    }
-
+   
     private void Attacked()
     {
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + 1 * GetHuong(), transform.position.y), new Vector3(GetHuong(), 0), tamNhin);
@@ -149,6 +142,10 @@ public class Quai3Move : MonoBehaviour
             animator.Play(aniHit);
             directionKnock = collision.transform.lossyScale.x;
         }
+        if (collision.CompareTag(AllTag.KEY_TAG_BULLET))
+        {
+            Dead();
+        }
     }
 
     private void TakeDamage()
@@ -188,7 +185,7 @@ public class Quai3Move : MonoBehaviour
         isDead = true;
         agent.SetDestination(transform.position);
         agent = null;
-        animator.Play(aniDead);
+        animator.SetTrigger(aniDead);
     }
     public void ApplineGravity()
     {

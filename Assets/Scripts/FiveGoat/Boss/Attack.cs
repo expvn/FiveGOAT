@@ -53,8 +53,8 @@ public class Attack : MonoBehaviour
     public void Skill1()
     {
         GameObject fire1,fire2;
-        Vector3 pointSpawnA = new Vector3 (transform.localPosition.x+spaceXSkill, transform.localPosition.y + spaceYSkill);
-        Vector3 pointSpawnB = new Vector3 (transform.localPosition.x+spaceXSkill*-1f, transform.localPosition.y + spaceYSkill/spaceYSkill);
+        Vector3 pointSpawnA = new Vector3 (transform.position.x+spaceXSkill, transform.position.y + spaceYSkill);
+        Vector3 pointSpawnB = new Vector3 (transform.position.x+spaceXSkill*-1f, transform.position.y + spaceYSkill/spaceYSkill);
         fire1 = Instantiate(fireBall, pointSpawnA, Quaternion.identity);
         fire2 = Instantiate(fireBall, pointSpawnB, Quaternion.identity);
         fire1.GetComponent<FireBallAttackLeft>().enabled = true;
@@ -71,7 +71,7 @@ public class Attack : MonoBehaviour
         int i = Random.Range(0, 2);
         if (i==0)
         {
-            HeartManager.instance.SetHeart(10);
+            HeartManager.instance.SetHeart(1);
         }
         else
         {

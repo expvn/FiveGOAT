@@ -8,11 +8,11 @@ public class TurnOffKhien : MonoBehaviour
     private float timer;
     void Update()
     {
-        timer += Time.deltaTime;
+        /*timer += Time.deltaTime;
         if (timer > timerValue)
         {   
             timer= 0;
             gameObject.SetActive(false); 
-        }
+        }*/
     }
 }

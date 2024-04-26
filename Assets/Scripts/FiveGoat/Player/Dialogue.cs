@@ -36,6 +36,10 @@ public class Dialogue : MonoBehaviour
                 run = false;
             }
         }
+        if(Input.GetKeyDown(KeyCode.Return)) 
+        { 
+        NextLine();
+        }
         
     }
 
