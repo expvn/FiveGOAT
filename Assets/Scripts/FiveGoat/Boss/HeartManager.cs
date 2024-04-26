@@ -43,4 +43,15 @@ public class HeartManager : MonoBehaviour
     {
         return heartMax;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(AllTag.KEY_TAG_SWORD))
+        {
+            heart--;
+        }
+        if (collision.CompareTag("Bullet"))
+        {
+            heart -= (30f / 100f) * heartMax;
+        }
+    }
 }

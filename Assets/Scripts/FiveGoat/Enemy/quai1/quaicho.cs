@@ -137,7 +137,7 @@ public class quaicho : MonoBehaviour
     {
         animator.Play("quai_hit");
         quai_hit = true;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -148,6 +148,10 @@ public class quaicho : MonoBehaviour
             animator.Play("quai_hit");
             TakeDamage();
             Debug.Log("hit");
+        }
+        if (collision.CompareTag(AllTag.KEY_TAG_BULLET))
+        {
+            Dead();
         }
     }
     void FindPlayer()
