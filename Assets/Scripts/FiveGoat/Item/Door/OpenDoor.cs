@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class OpenDoor : MonoBehaviour
 {
     [SerializeField] float time;
     [SerializeField] Transform pointTele;
+    [SerializeField] GameObject text;
     private Animator animator;
 
     private void Start()
@@ -24,8 +26,18 @@ public class OpenDoor : MonoBehaviour
                 player.SetActive(false);
                 StartCoroutine(Tele(player));
             }
+            else
+            {
+                StartCoroutine(Reset());
+            }
 
         }
+    }
+    IEnumerator Reset()
+    {
+        text.SetActive(true);
+        yield return new WaitForSeconds(time);
+        text.SetActive(false);
     }
     IEnumerator Tele(GameObject player)
     {
