@@ -9,7 +9,7 @@ public class DamageCutScene : MonoBehaviour
         if (collision.CompareTag(AllTag.KEY_TAG_PLAYER))
         {
             PlayerManager player = collision.GetComponent<PlayerManager>();
-            player.Die();
+            player.Die();   
         }
     }
 }
