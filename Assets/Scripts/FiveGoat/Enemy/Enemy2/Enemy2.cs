@@ -103,6 +103,12 @@ public class Enemy2 : MonoBehaviour
         if (collider2D.CompareTag(AllTag.KEY_TAG_SWORD))
         {
             animator.Play("Hit");
+            TakeDamage();
+        }
+        if (collider2D.CompareTag(AllTag.KEY_TAG_BULLET))
+        {
+            animator.Play("Hit");
+            gameObject.SetActive(false);
         }
     }
 

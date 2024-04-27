@@ -17,6 +17,7 @@ TagManager:
   - BulletItem
   - KhienItem
   - Khien
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -21,4 +21,5 @@ public class AllTag : MonoBehaviour
 
     public static string KEY_TAG_BULLETITEM = "BulletItem";
     public static string KEY_TAG_GUNITEM = "GunItem";
+    public static string KEY_TAG_BULLET = "Bullet";
 }

@@ -8,7 +8,11 @@ public class Cotroller : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerManager>().Die();
+            PlayerManager player = collision.GetComponent<PlayerManager>();
+            if (player != null)
+            {
+                player.TakeDamage(1);
+            }
         }
     }
 }

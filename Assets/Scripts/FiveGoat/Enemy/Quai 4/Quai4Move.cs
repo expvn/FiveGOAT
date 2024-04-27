@@ -32,6 +32,7 @@ public class Quai4Move : MonoBehaviour
     float directionKnock;
     bool isDead;
     bool isHit;
+    bool isATK;
     string aniAttack = "Attack";
     string aniHit = "Hit";
     string aniDead = "Dead";
@@ -43,12 +44,14 @@ public class Quai4Move : MonoBehaviour
         huong = 1;
         speed = speedMin;
         heart = maxHeart;
+        timeAttack = maxTimeAttack;
     }
 
 
     private void FixedUpdate()
     {
         if(isDead) return;
+        if(isATK) { return; }
         Mover();
         Attacked();
         Hit();
@@ -142,10 +145,14 @@ public class Quai4Move : MonoBehaviour
         if (hit.collider.gameObject.CompareTag(AllTag.KEY_TAG_PLAYER))
         {
             timeAttack += 1 * Time.deltaTime;
+            speed = 0f;
             if (timeAttack < maxTimeAttack) return;
             animator.Play(aniAttack);
+            isATK = true;
             timeAttack = 0;
         }
+        Debug.Log(hit.collider.name);
+        Debug.DrawRay(rayPosition.position,new Vector3(tamNhin * huong,0f),Color.green);
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -157,6 +164,10 @@ public class Quai4Move : MonoBehaviour
             TakeDamage();
             directionKnock = collision.transform.lossyScale.x;
             KnockBack();
+        }
+        if (collision.CompareTag(AllTag.KEY_TAG_BULLET))
+        {
+            Dead();
         }
     }
     public void Dead()
@@ -192,6 +203,9 @@ public class Quai4Move : MonoBehaviour
     {
         weapon.SetActive(false);
         speed = speedMin;
+        isATK = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
     }
     public void HideQuai()
     {

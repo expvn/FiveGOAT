@@ -11,6 +11,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private TMP_Text textOxy;
     [SerializeField] private TMP_Text textCoin;
     [SerializeField] private TMP_Text textTime;
+    [SerializeField] private TMP_Text textBullet;
+    [SerializeField] private TMP_Text textKhien;
+    [SerializeField] private TMP_Text textKey;
     [SerializeField] private GameObject playerGround;
     [SerializeField] private GameObject playerWater;
     [SerializeField] private float oxyMax;
@@ -37,8 +40,8 @@ public class PlayerManager : MonoBehaviour
     private bool showMessage;
     private float time;
     private bool isDead;
-
-    private float tgMatKhien = 10f;
+    private float dan;
+    private float dieuKien = 0f;
     float timer;
 
     private void Awake()
@@ -54,6 +57,7 @@ public class PlayerManager : MonoBehaviour
         Time.timeScale = 1f;
         isDead = false;
         timer = 0;
+        
     }
     void Start()
     {
@@ -61,7 +65,10 @@ public class PlayerManager : MonoBehaviour
         time = timeMax;
         coin = 0;
         textCoin.SetText(coin.ToString());
-        
+        textKhien.SetText(0.ToString());
+        textBullet.SetText(dan.ToString());
+        textKey.SetText(key.ToString());
+
     }
     private void FixedUpdate()
     {
@@ -82,7 +89,7 @@ public class PlayerManager : MonoBehaviour
         GroundOrWater();
         ModunOxy();
         ModunTime();
-        TGHetKhien();
+       
         
     }
 
@@ -161,6 +168,7 @@ public class PlayerManager : MonoBehaviour
     }
 
  
+    
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -168,21 +176,7 @@ public class PlayerManager : MonoBehaviour
         {
             isWater = true;
         }
-        if (collision.CompareTag("GunItem"))
-        {
-            PlayerMover.Intance.gun.SetActive(true);
-            Destroy(collision.gameObject);
-        }
-        if (collision.CompareTag("BulletItem"))
-        {
-            Gun.Instance.TongSoDan++;
-            Destroy(collision.gameObject);
-        }
-        if (collision.CompareTag("KhienItem"))
-        {
-            khien.SetActive(true);
-            Destroy(collision.gameObject);
-        }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -224,7 +218,22 @@ public class PlayerManager : MonoBehaviour
         {
             IncreaseHealth(1);
         }
-        
+        if (collision.CompareTag("GunItem"))
+        {
+            PlayerMover.Intance.gun.SetActive(true);
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("BulletItem"))
+        {
+            dan++;
+            textBullet.SetText(dan.ToString());
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("KhienItem"))
+        {
+            khien.SetActive(true);
+            Destroy(collision.gameObject);
+        }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -235,6 +244,7 @@ public class PlayerManager : MonoBehaviour
             if (i != 0)
             {
                 key = i;
+                textKey.SetText(key.ToString());
             }
         }
         if(collision.gameObject.CompareTag(AllTag.KEY_TAG_PIPE))
@@ -248,6 +258,7 @@ public class PlayerManager : MonoBehaviour
             AddCoin();
             textCoin.SetText(coin.ToString());
         }
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -267,7 +278,7 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-
+        Hit();
         if (health <= 0)
         {
             Die();
@@ -356,12 +367,26 @@ public class PlayerManager : MonoBehaviour
         return isDead;
     }
 
-    public void TGHetKhien()
+    public float GetDan()
     {
-        if (timer >= tgMatKhien)
-        {
-            khien.SetActive(false);
-        }
+        return dan;
+    }
+    public void SetDan(float ndan)
+    {
+        dan = ndan;
+        textBullet.SetText(dan.ToString());
+    }
+    public TMP_Text GetTextKhien()
+    {
+        return textKhien;
+    }
+  public float GetDieuKien()
+    {
+        return dieuKien;
+    }
+    public void addDieuKien()
+    {
+        dieuKien++;
     }
 }
 
