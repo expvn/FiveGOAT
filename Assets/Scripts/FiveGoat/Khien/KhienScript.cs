@@ -6,7 +6,7 @@ using UnityEngine;
 public class KhienScript : MonoBehaviour
 {
     public float MauKhien = 5;
-    public TMP_Text text;
+    private TMP_Text text;
     void Start()
     {
         text = PlayerManager.instan.GetTextKhien();
@@ -18,6 +18,10 @@ public class KhienScript : MonoBehaviour
     {
         
     }
+    private void OnEnable() {
+        text = PlayerManager.instan.GetTextKhien();
+        text.SetText(MauKhien.ToString());
+    }
 
     public void TakeDamage(float damage)
     {
@@ -26,7 +30,13 @@ public class KhienScript : MonoBehaviour
         if (MauKhien<1)
         {
             gameObject.SetActive(false);
+            MauKhien = 5;
         }
     }
 
+    public void SetTextKhien(float mau)
+    {
+        MauKhien = mau;
+        text.SetText(MauKhien.ToString());
+    }
 }

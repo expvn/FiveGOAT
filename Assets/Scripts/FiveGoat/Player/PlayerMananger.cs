@@ -231,7 +231,18 @@ public class PlayerManager : MonoBehaviour
         }
         if (collision.CompareTag("KhienItem"))
         {
-            khien.SetActive(true);
+            KhienScript khienScript = khien.GetComponent<KhienScript>();
+            if (khien.activeInHierarchy)
+            {
+                
+                khienScript.SetTextKhien(5);
+            }
+            else
+            {
+                khien.SetActive(true);
+                khienScript.SetTextKhien(5);
+            }
+            
             Destroy(collision.gameObject);
         }
 
